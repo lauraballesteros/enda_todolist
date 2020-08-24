@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from.models import todoItem
 from django.contrib import messages
 # Create your views here.
-def homeView (request):
+def showItems (request):
     all_todo_items = todoItem.objects.all()
     return render(request, 'todolist.html',
     {'all_items':all_todo_items})
