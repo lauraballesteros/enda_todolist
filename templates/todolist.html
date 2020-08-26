@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
-<h1>hello yall</h1>
+{% block content%}
+<h1>hello {{user.username}} </h1>
 
 
 <ul>
@@ -43,3 +43,4 @@
     <input type="text" name="content"/>
     <input type="submit" value="Add"/>
 </form>
+{% endblock%}
