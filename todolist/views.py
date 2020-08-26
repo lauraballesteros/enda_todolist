@@ -9,7 +9,7 @@ def home(request):
 
 @login_required   
 def showItems (request):
-    all_todo_items = todoItem.objects.all()
+    all_todo_items = todoItem.objects.filter(author_id=request.user)
     return render(request, 'todolist.html',
     {'all_items':all_todo_items})
 
@@ -17,7 +17,8 @@ def showItems (request):
 def addTodo(request):
     #create a new todo all_items and save it
     #then redirect the browser to /todolist/
-    new_item=todoItem(content=request.POST['content'])
+    new_item=todoItem(author=request.user,content=request.POST['content'])
+    # new_item.author=request.user
     new_item.save()
     return HttpResponseRedirect('/todolist')
 
