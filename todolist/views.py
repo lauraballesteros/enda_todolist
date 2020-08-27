@@ -62,7 +62,7 @@ def translate_to_en(request,todo_id):
     payload = "source=en&q="+text+"&target=es"
     headers = {
         'x-rapidapi-host': "google-translate1.p.rapidapi.com",
-        'x-rapidapi-key': "fa4f2bed48msha365fcf2260569bp13837fjsn73bb60c0c9d7",
+        'x-rapidapi-key': "",
         'accept-encoding': "application/gzip",
         'content-type': "application/x-www-form-urlencoded"
         }
