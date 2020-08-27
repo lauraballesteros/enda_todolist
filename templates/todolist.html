@@ -5,6 +5,7 @@
 
 <ul>
     {% for todo_item in all_items%}
+       
         {% if todo_item.is_completed %}
 
             <li>{{todo_item.content}} | {{todo_item.is_completed}}
@@ -17,6 +18,11 @@
                     style="display: inline;"
                     method="post">{% csrf_token %}
                     <input type="submit" value="undo it"/>
+                </form>
+                <form action="/translate_to_en/{{todo_item.id}}/" 
+                    style="display: inline;"
+                    method="post">{% csrf_token %}
+                    <input type="submit" value="translate to"/>
                 </form>
             </li>  
         
@@ -33,6 +39,11 @@
                     method="post">{% csrf_token %}
                     <input type="submit" value="Complete it"/>
                 </form>
+                <form action="/translate_to_en/{{todo_item.id}}/" 
+                    style="display: inline;"
+                    method="post">{% csrf_token %}
+                    <input type="submit" value="translate to"/>
+                </form>
             </li>  
         
         {% endif %}
@@ -43,4 +54,17 @@
     <input type="text" name="content"/>
     <input type="submit" value="Add"/>
 </form>
+
+<form action="/showCompleted/" method="get">{% csrf_token %}
+    <input type="submit" value="Show completed ones"/>
+</form>
+<form action="/showUncompleted/" method="get">{% csrf_token %}
+    <input type="submit" value="Show uncompleted ones"/>
+</form>
+<form action="/todolist/" method="get">{% csrf_token %}
+    <input type="submit" value="Show all"/>
+</form>
+
+
+
 {% endblock%}

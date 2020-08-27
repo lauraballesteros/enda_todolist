@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from.models import todoItem
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import requests
 # Create your views here.
 def home(request):
     return render(request, 'home.html', {})
@@ -10,6 +11,18 @@ def home(request):
 @login_required   
 def showItems (request):
     all_todo_items = todoItem.objects.filter(author_id=request.user)
+    return render(request, 'todolist.html',
+    {'all_items':all_todo_items})
+
+@login_required   
+def showCompleted (request):
+    all_todo_items = todoItem.objects.filter(author_id=request.user,is_completed=True)
+    return render(request, 'todolist.html',
+    {'all_items':all_todo_items})
+    
+@login_required   
+def showUncompleted (request):
+    all_todo_items = todoItem.objects.filter(author_id=request.user,is_completed=False)
     return render(request, 'todolist.html',
     {'all_items':all_todo_items})
 
@@ -41,3 +54,26 @@ def uncross(request,todo_id):
     item_to_uncross.is_completed = False
     item_to_uncross.save()
     return HttpResponseRedirect('/todolist')
+
+def translate_to_en(request,todo_id):
+    url = "https://google-translate1.p.rapidapi.com/language/translate/v2"
+    item = todoItem.objects.get(id=todo_id)
+    text = item.content.replace(' ','%20')
+    payload = "source=en&q="+text+"&target=es"
+    headers = {
+        'x-rapidapi-host': "google-translate1.p.rapidapi.com",
+        'x-rapidapi-key': "fa4f2bed48msha365fcf2260569bp13837fjsn73bb60c0c9d7",
+        'accept-encoding': "application/gzip",
+        'content-type': "application/x-www-form-urlencoded"
+        }
+
+    response = requests.request("POST", url, data=payload, headers=headers)
+    res=response.json()
+    item.content=res['data']['translations'][0]['translatedText']
+    item.save(update_fields=['content'])
+    return HttpResponseRedirect('/todolist')
+
+
+
+    
+    
