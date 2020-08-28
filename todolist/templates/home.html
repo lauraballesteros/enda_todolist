@@ -1,6 +1,43 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h1>Home!</h1>
+
+<div class="content_up">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{%url 'list'%}">Welcome</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav">
+    
+                {%if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{%url 'home'%}">Home</a>
+                <a class="nav-item nav-link" href="{%url 'logout'%}">Logout</a>
+                {% else %}
+                <a class="nav-item nav-link" href="{%url 'login'%}">Login</a>
+                <a class="nav-item nav-link" href="{%url 'register'%}">Register</a>
+                {% endif %}
+    
+    
+            </div>
+        </div>
+    </nav>
+    <div class="center-column formul">
+        <img class="home_img" src="{% static 'img/home.png' %}" alt="update">
+        <h2 id="logout_msg">Home Page</h2>
+        {%if user.is_authenticated %}
+            
+        <h3><a href="{%url 'list'%}">Check your to do list </a></h3>
+        {% else %}
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        {% endif %}
+
+    </div>
+    <a class="reference" href="https://stories.freepik.com/work">Illustration by Freepik Stories</a>
+</div>
 
 {% endblock content %}
