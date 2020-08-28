@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="content_up">
+    <div class="center-column formul">
+        <img class="update_img" src="{% static 'img/update.png' %}" alt="update">
+        <h2>updating item: {{item.id}}</h2>
+        {% if item %}
+        <form method="POST">{% csrf_token %}
+            <input type="text" placeholder="{{ item.content }}"
+            value="{{ item.content }}" name="item">
+            <input type="hidden" value="{{ item.is_completed }}" name=is_completed>
+            <input type="hidden" value="{{ item.author }}" name=author>
+
+            <button type="submit">Edit</button>
+
+        </form>
+{% endif %}
+    </div>
+    <a class="reference" href="https://stories.freepik.com/work">Illustration by Freepik Stories</a>
+</div>
+    
+
+{% endblock content %}

@@ -4,6 +4,7 @@ from.models import todoItem
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import requests
+from .forms import todoForm
 # Create your views here.
 def home(request):
     return render(request, 'home.html', {})
@@ -55,7 +56,7 @@ def uncross(request,todo_id):
     item_to_uncross.save()
     return HttpResponseRedirect('/todolist')
 
-def translate_to_en(request,todo_id):
+def translate_to_es(request,todo_id):
     url = "https://google-translate1.p.rapidapi.com/language/translate/v2"
     item = todoItem.objects.get(id=todo_id)
     text = item.content.replace(' ','%20')
@@ -72,8 +73,35 @@ def translate_to_en(request,todo_id):
     item.content=res['data']['translations'][0]['translatedText']
     item.save(update_fields=['content'])
     return HttpResponseRedirect('/todolist')
-
-
-
     
+def translate_to_en(request,todo_id):
+    url = "https://google-translate1.p.rapidapi.com/language/translate/v2"
+    item = todoItem.objects.get(id=todo_id)
+    text = item.content.replace(' ','%20')
+    payload = "source=es&q="+text+"&target=en"
+    headers = {
+        'x-rapidapi-host': "google-translate1.p.rapidapi.com",
+        'x-rapidapi-key': "",
+        'accept-encoding': "application/gzip",
+        'content-type': "application/x-www-form-urlencoded"
+        }
+
+    response = requests.request("POST", url, data=payload, headers=headers)
+    res=response.json()
+    item.content=res['data']['translations'][0]['translatedText']
+    item.save(update_fields=['content'])
+    return HttpResponseRedirect('/todolist')
+
+@login_required   
+def edit_item(request, todo_id):
+    if request.method == 'POST':
+        item = todoItem.objects.get(id=todo_id)
+
+        item.content = request.POST['item']
+        item.save(update_fields=['content'])
+        return HttpResponseRedirect('/todolist')
+        
+    else:
+        item = todoItem.objects.get(id=todo_id)
+        return render(request, 'edit_item.html',{'item':item})
     

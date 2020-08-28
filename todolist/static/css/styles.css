@@ -1,0 +1,151 @@
+body{
+    margin: auto;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212532;
+    text-align: left;
+    width: 100%;
+    height: 750px;
+    /* background: rgb(255,198,74); */
+    background: linear-gradient(30deg, rgba(255,198,74,1) 0%, rgba(228,189,246,1) 100%);
+}
+img {
+    max-width:100%;
+    height:auto;
+}
+.add_new_item{
+    margin-top: 20px;
+}
+.add_new_item input{
+    border-radius: 8px;
+    width: 80%;
+}
+.content_up{
+    margin: auto;
+    width: 50%;
+    /* height: 80%; */
+}
+form{
+    display: block;
+}
+.filter_btn {
+    margin-left: 30%;
+    margin-bottom: 30px;
+}
+.filter_btn form{
+    display: inline;
+}
+.submit{
+    background-color: #d3d3d3;
+}
+.add_new_item{
+    margin: auto;
+    padding-bottom: 12px;
+}
+.center-column{
+    width: 90%;
+    margin:20px auto;
+    padding: 20px;
+    background-color:rgba(255, 255, 255, 0.8);
+    opacity: 0.8;
+
+    border-radius: 3px;
+    box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+    height: 570px;
+    overflow: hidden;
+    overflow-y: scroll;    
+}
+.center-column h2{
+    font-family:'Fira Sans Condensed', sans-serif;
+}
+li form {
+    display: inline;
+}
+.formul {
+    text-align: center;
+    background-color:rgba(255, 255, 255, 0.8);
+    box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+
+}
+.form-sign{
+    width: 100%;
+    max-width: 430px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-sign input{
+    width:100% ;
+    border-radius: 10px; 
+    border-color: seashell;
+}
+.form-sign li{
+    display:none;
+}
+.form-sign label{
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size:large ;
+}
+.form-sign p{
+    font-size: small;
+}
+.sign_btn{
+    padding-top: 20px;
+}
+.btn-image:before {
+    content: "";
+    width: 32px;
+    height: 22px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position : center center;
+    background-repeat:no-repeat;
+    padding: 0;
+}
+
+.monBtn:before{
+     background-image : url(https://icons.iconarchive.com/icons/icons-land/vista-flags/32/English-Language-Flag-1-icon.png);
+}
+.monBtn2:before{
+     background-image : url(https://icons.iconarchive.com/icons/wikipedia/flags/32/ES-Spain-Flag-icon.png);
+}
+.update_img{
+    width: 70%;
+    margin-bottom: 20px;
+    margin-top: 80px;
+}
+.logo_img {
+    width: 15%;
+    margin-top: 25px;
+}
+.logout_img {
+    width: 100%;
+    margin-top: 70px;
+}
+.reference{
+    color: black;
+    text-align: center;
+}
+#hint_id_username{
+    font-size: smaller;
+} 
+#todo_list a{
+    font-size: small;
+}
+#todo_list span{
+    font-size: 20px;
+}
+#top_todo{
+    text-align: center;
+}
+#logout_msg{
+    margin-top: 25px;
+}

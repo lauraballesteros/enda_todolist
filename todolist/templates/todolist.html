@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content%}
+<div class="content_up">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{%url 'list'%}">Hello {{user.username}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav">
+    
+                {%if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{%url 'logout'%}">Logout</a>
+                {% else %}
+                <a class="nav-item nav-link" href="{%url 'login'%}">Login</a>
+                <a class="nav-item nav-link" href="{%url 'register'%}">Register</a>
+                {% endif %}
+    
+    
+            </div>
+        </div>
+    </nav>
+    
+    <div class="center-column"  >
+        <h2 id="top_todo">{{user.username}} <span> to-do's</span></h2>
+        <img class="todolist_img" src="{% static 'img/checklist.png' %}" alt="todo">   
+        <br>     
+        <div class="top">
+            <div class="add_new_item">
+                <form id="top_todo" action="/addTodo/" method="post">{% csrf_token %}
+                    <input id="top_todo" type="text" name="content" />
+                    <button class="btn btn-dark" type="submit" >Add</button>
+                </form>
+            </div>
+            <br>
+            <div class="filter_btn">
+                <form action="/showCompleted/" method="get">{% csrf_token %}
+                    <button class="btn btn-dark" type="submit" >Completed</button>
+                </form>
+                <form action="/showUncompleted/" method="get">{% csrf_token %}
+                    <button class="btn btn-dark" type="submit" >Uncompleted</button>
+                </form>
+                <form action="/todolist/" method="get">{% csrf_token %}
+                    <button class="btn btn-dark" type="submit" >All</button>
+                </form>
+            </div>
+        </div>
+        
+
+        <div class="row justify-content-md-center" id="todo_list">
+            <div class="col ">
+                <ul class="list-group list-group-flush">
+                    {% for todo_item in all_items%}
+    
+                        {% if todo_item.is_completed %}
+    
+                            <li class="list-group-item">
+                               <span>{{todo_item.content}}</span> 
+                                <br>
+                                <a href="{% url 'edit' todo_item.id  %}">update</a>
+                                <br>
+                                <form action="/deleteTodo/{{todo_item.id}}/" method="post">{% csrf_token %}
+                                    <button class="btn btn-sm btn-outline-danger" type="submit" >Delete</button>
+                                </form>
+                                <form action="/uncross/{{todo_item.id}}/" style="display: inline;" method="post">{% csrf_token %}
+                                    <button class="btn btn-sm btn-outline-success" type="submit" >Undo it</button>
+                                </form>
+                                <div style="float:right">
+                                    <form action="/translate_to_en/{{todo_item.id}}/" method="post">{% csrf_token %}
+                                        <button class="btn btn-sm btn-outline-primary btn-image monBtn" type="submit" ></button>
+                                    </form>
+                                    <form action="/translate_to_es/{{todo_item.id}}/" method="post">{% csrf_token %}
+                                        <button  class="btn btn-sm btn-outline-primary btn-image monBtn2" type="submit" ></button>      
+                                    </form>
+                                </div>
+                                
+                            </li>
+    
+                        {% else %}
+    
+                            <li class="list-group-item">
+                                <span>{{todo_item.content}}</span> 
+                                <br>
+                                <a href="{% url 'edit' todo_item.id  %}">update</a>
+                                <br>
+                                <form action="/deleteTodo/{{todo_item.id}}/" method="post">{% csrf_token %}
+                                    <button class="btn btn-sm btn-outline-danger" type="submit" >Delete</button>
+                                </form>
+                                <form action="/cross_off/{{todo_item.id}}/" method="post">{% csrf_token %}
+                                    <button class="btn btn-sm btn-outline-success" type="submit" >Complete it</button>
+                                </form>
+                                <div style="float:right">
+                                    <form action="/translate_to_en/{{todo_item.id}}/" method="post">{% csrf_token %}
+                                        <button class="btn btn-sm btn-outline-primary btn-image monBtn" type="submit" ></button>
+                                    </form>
+                                    <form action="/translate_to_es/{{todo_item.id}}/" method="post">{% csrf_token %}
+                                        <button  class="btn btn-sm btn-outline-primary btn-image monBtn2" type="submit" ></button>      
+                                    </form>
+                                </div>
+                                
+
+                            </li>
+    
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+    
+                
+    
+    
+            </div>
+        </div>
+    </div>
+    
+    <a class="reference" href="https://stories.freepik.com/work">Illustration by Freepik Stories</a>
+</div>
+{% endblock %}
