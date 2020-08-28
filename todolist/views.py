@@ -9,6 +9,7 @@ from .forms import todoForm
 def home(request):
     return render(request, 'home.html', {})
 
+
 @login_required   
 def showItems (request):
     all_todo_items = todoItem.objects.filter(author_id=request.user)
@@ -57,6 +58,7 @@ def uncross(request,todo_id):
     return HttpResponseRedirect('/todolist')
 
 def translate_to_es(request,todo_id):
+    
     url = "https://google-translate1.p.rapidapi.com/language/translate/v2"
     item = todoItem.objects.get(id=todo_id)
     text = item.content.replace(' ','%20')
